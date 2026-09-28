@@ -1,7 +1,7 @@
 {
   "name": "visor-urbano-spgg",
   "productName": "Visor Urbano",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Visor Urbano de San Pedro Garza García",
   "author": "Municipio de San Pedro Garza García",
   "main": "main.js",
@@ -26,7 +26,7 @@
       "output": "dist"
     },
     "win": {
-      "icon": "build/icon.png",
+      "icon": "icon.ico",
       "artifactName": "VisorUrbanoSPGG-Setup.${ext}"
     },
     "nsis": {
@@ -34,16 +34,19 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Visor Urbano"
+      "shortcutName": "Visor Urbano",
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico"
     },
     "mac": {
-      "icon": "build/icon-mac.png",
+      "icon": "icon.icns",
       "category": "public.app-category.reference",
       "identity": null,
       "artifactName": "VisorUrbanoSPGG.${ext}"
     },
     "dmg": {
-      "title": "Visor Urbano"
+      "title": "Visor Urbano",
+      "icon": "icon.icns"
     }
   }
 }

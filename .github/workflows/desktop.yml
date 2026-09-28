@@ -34,6 +34,12 @@ jobs:
       - run: npm run ${{ matrix.script }}
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Verificar ícono (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          ICNS=$(ls dist/mac-universal/*.app/Contents/Resources/*.icns | head -1)
+          echo "Ícono empaquetado: $ICNS"
+          cmp "$ICNS" build/icon.icns && echo "OK: ícono correcto"
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }}
