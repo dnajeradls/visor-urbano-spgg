@@ -1,7 +1,7 @@
 {
   "name": "visor-urbano-spgg",
   "productName": "Visor Urbano",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Visor Urbano de San Pedro Garza García",
   "author": "Municipio de San Pedro Garza García",
   "main": "main.js",
