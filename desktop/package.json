@@ -45,8 +45,7 @@
       "artifactName": "VisorUrbanoSPGG.${ext}"
     },
     "dmg": {
-      "title": "Visor Urbano",
-      "icon": "icon.icns"
+      "title": "Visor Urbano"
     }
   }
 }

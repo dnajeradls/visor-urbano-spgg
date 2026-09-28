@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   build:
@@ -31,9 +32,19 @@ jobs:
         with:
           node-version: '20'
       - run: npm install
-      - run: npm run ${{ matrix.script }}
+      - name: Compilar
+        shell: bash
+        run: npm run ${{ matrix.script }} 2>&1 | tee build.log; exit ${PIPESTATUS[0]}
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Reportar error
+        if: failure()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tail -c 60000 build.log > tail.log || echo "sin log" > tail.log
+          gh issue create --repo "${{ github.repository }}" --title "Fallo de compilación ${{ matrix.os }} #${{ github.run_number }}" --body-file tail.log || true
       - name: Verificar ícono (macOS)
         if: runner.os == 'macOS'
         run: |
