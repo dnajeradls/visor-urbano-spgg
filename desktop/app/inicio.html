@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Visor Urbano</title>
+<style>
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:#193275;color:#fff;font-family:system-ui,-apple-system,Roboto,sans-serif;
+  display:flex;flex-direction:column;min-height:100%;padding:24px 24px 32px}
+.stripe{position:fixed;left:0;right:0;top:0;height:6px;display:flex}
+.stripe span{flex:1}
+.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px}
+.logo{width:min(56vw,240px);height:auto;animation:in .6s ease-out both}
+h1{margin:0;font-weight:800;font-size:clamp(2.2rem,10vw,3.2rem);line-height:1;letter-spacing:-.02em}
+.sub{margin:8px 0 0;font-size:1.05rem;opacity:.8}
+.open{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;max-width:420px;margin:0 auto;
+  background:#fff;color:#193275;border-radius:18px;padding:20px 22px;font-weight:800;font-size:1.05rem;line-height:1.2;
+  text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.open svg{width:24px;height:24px;flex:none;stroke:#193275;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.open:active{transform:scale(.98)}
+.msg{text-align:center;opacity:.85;font-size:.9rem;margin:14px 0 0;min-height:1.2em}
+@keyframes in{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="stripe" aria-hidden="true"><span style="background:#435fa8"></span><span style="background:#58baab"></span><span style="background:#36a839"></span><span style="background:#e84852"></span><span style="background:#f5a872"></span></div>
+
+<section class="hero">
+  <img class="logo" src="logo.png" alt="Un solo San Pedro">
+  <div>
+    <h1>Visor Urbano</h1>
+    <p class="sub">San Pedro Garza García</p>
+  </div>
+</section>
+
+<a class="open" id="open" href="https://visorurbano.sanpedro.gob.mx/">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>
+  Toca aquí para abrir el mapa
+</a>
+<p class="msg" id="msg"></p>
+
+<script>
+document.getElementById('open').addEventListener('click', function(e){
+  if (!navigator.onLine) { e.preventDefault(); document.getElementById('msg').textContent = 'Sin conexión. Conéctate a internet para abrir el mapa.'; }
+});
+</script>
+</body>
+</html>

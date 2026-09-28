@@ -1,0 +1,43 @@
+{
+  "name": "visor-urbano-spgg",
+  "productName": "Visor Urbano",
+  "version": "1.0.0",
+  "description": "Visor Urbano de San Pedro Garza García",
+  "author": "Municipio de San Pedro Garza García",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis --x64 --publish never",
+    "dist:mac": "electron-builder --mac dmg --universal --publish never"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "mx.gob.sanpedro.visorurbano",
+    "productName": "Visor Urbano",
+    "files": ["main.js", "app/**/*"],
+    "directories": { "buildResources": "build", "output": "dist" },
+    "win": {
+      "icon": "build/icon.png",
+      "artifactName": "VisorUrbanoSPGG-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Visor Urbano"
+    },
+    "mac": {
+      "icon": "build/icon.png",
+      "category": "public.app-category.reference",
+      "identity": null,
+      "artifactName": "VisorUrbanoSPGG.${ext}"
+    },
+    "dmg": {
+      "title": "Visor Urbano"
+    }
+  }
+}

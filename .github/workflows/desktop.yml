@@ -1,0 +1,57 @@
+name: Construir apps de escritorio
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'desktop/**', '.github/workflows/desktop.yml' ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            script: dist:win
+            file: desktop/dist/VisorUrbanoSPGG-Setup.exe
+          - os: macos-latest
+            script: dist:mac
+            file: desktop/dist/VisorUrbanoSPGG.dmg
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: desktop
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+      - run: npm run ${{ matrix.script }}
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }}
+          path: ${{ matrix.file }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: escritorio-v1.0.${{ github.run_number }}
+          name: Visor Urbano escritorio ${{ github.run_number }} (Windows y macOS)
+          files: |
+            out/VisorUrbanoSPGG-Setup.exe
+            out/VisorUrbanoSPGG.dmg
+          make_latest: false
